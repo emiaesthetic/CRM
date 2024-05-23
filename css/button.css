@@ -1,0 +1,26 @@
+.button {
+  padding: 10px 25px;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  color: var(--color-light);
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius);
+  transition-property: color, background-color, outline, scale;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing-function);
+}
+
+.button:hover,
+.button:focus {
+  color: var(--color-accent);
+  background-color: var(--background-color-main);
+  outline: 2px solid var(--color-accent);
+}
+
+.button:active {
+  scale: .98;
+}
