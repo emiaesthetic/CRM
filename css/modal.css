@@ -102,18 +102,6 @@
   transition-timing-function: var(--transition-timing-function);
 }
 
-.add-product__id:hover {
-  color: var(--color-accent);
-}
-
-.add-product__id:focus {
-  outline: none;
-}
-
-.add-product__id:focus-visible {
-  outline: 1px solid var(--color-accent);
-}
-
 .add-product__button {
   outline: none;
 }
