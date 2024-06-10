@@ -10,13 +10,10 @@
   <title>CRM</title>
 
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/variables.js" defer></script>
-  <script src="js/modal.js" defer></script>
-  <script src="js/table.js" type="module" defer></script>
+  <script src="js/main.js" type="module" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      table();
-      modalWindow();
+      crmInit();
     });
   </script>
 </head>
@@ -433,7 +430,7 @@
               <label class="form__label" for="discount">Дисконт</label>
               <input class="discount__checkbox-input" type="checkbox">
               <div class="discount__number">
-                <input class="form__input discount__number-input" type="number" name="discount" id="discount" disabled>
+                <input class="form__input discount__number-input" type="number" name="discount" id="discount">
               </div>
             </div>
 

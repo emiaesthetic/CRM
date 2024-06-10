@@ -1,14 +1,16 @@
 'use strict';
 
-import {goods, deleteProduct} from '../data/data.js';
+import { goods, deleteProduct } from './data.js';
 
 {
-  const createRow = ({id, title, category, price, count, units}) => {
-    const tr = document.createElement('tr');
-    tr.classList.add('table__row');
-    tr.dataset.id = id;
+	const createRow = ({ id, title, category, price, count, units }) => {
+		const tr = document.createElement('tr');
+		tr.classList.add('table__row');
+		tr.dataset.id = id;
 
-    tr.insertAdjacentHTML('beforeend', `
+		tr.insertAdjacentHTML(
+			'beforeend',
+			`
       <td class="table__body-data">${id}</td>
       <td class="table__body-data">${title}</td>
       <td class="table__body-data">${category}</td>
@@ -38,18 +40,21 @@ import {goods, deleteProduct} from '../data/data.js';
           </svg>
         </button>
       </td>
-    `);
+    `,
+		);
 
-    return tr;
-  };
+		return tr;
+	};
 
-  const createTable = () => {
-    const table = document.createElement('table');
-    table.classList.add('goods__table', 'table');
+	const createTable = () => {
+		const table = document.createElement('table');
+		table.classList.add('goods__table', 'table');
 
-    const thead = document.createElement('thead');
-    thead.classList.add('table__header');
-    thead.insertAdjacentHTML('afterbegin', `
+		const thead = document.createElement('thead');
+		thead.classList.add('table__header');
+		thead.insertAdjacentHTML(
+			'afterbegin',
+			`
     <tr class="table__row">
       <th class="table__header-title">ID</th>
       <th class="table__header-title">Наименование</th>
@@ -60,44 +65,89 @@ import {goods, deleteProduct} from '../data/data.js';
       <th class="table__header-title">Итог</th>
       <th class="table__header-title"></th>
     </tr>
-    `);
+    `,
+		);
 
-    const tbody = document.createElement('tbody');
-    tbody.classList.add('table__body');
+		const tbody = document.createElement('tbody');
+		tbody.classList.add('table__body');
 
-    table.append(thead, tbody);
-    table.thead = thead;
-    table.tbody = tbody;
+		table.append(thead, tbody);
+		table.thead = thead;
+		table.tbody = tbody;
 
-    return table;
-  }
+		return table;
+	};
 
-  const renderGoods = (elem, goods) => {
-    const allRow = goods.map(createRow);
-    console.log(allRow);
-    elem.append(...allRow);
-  };
+	const renderGoods = (table, goods) => {
+		const allRow = goods.map(createRow);
+		console.log(allRow);
+		table.tbody.append(...allRow);
 
-  const init = () => {
-    const table = createTable();
-    renderGoods(table.tbody, goods);
+		const wrapperTable = document.querySelector('.goods__table-wrapper');
+		wrapperTable.innerHTML = '';
+		wrapperTable.append(table);
+	};
 
-    const wrapperTable = document.querySelector('.goods__table-wrapper');
-    wrapperTable.innerHTML = '';
-    wrapperTable.append(table);
+	const modalControl = (btnAdd, overlay) => {
+		const openModal = () => {
+			overlay.classList.add('overlay--active');
+		};
 
-    table.tbody.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target.closest('.table__body-button--delete')) {
-        const currentRow = target.closest('.table__row');
-        const dataset = currentRow.dataset;
+		const closeModal = () => {
+			overlay.classList.remove('overlay--active');
+		};
 
-        target.closest('.table__row').remove();
-        deleteProduct(dataset.id);
-        console.log(goods);
-      }
-    });
-  };
+		btnAdd.addEventListener('click', openModal);
 
-  window.table = init;
+		overlay.addEventListener('click', (event) => {
+			const target = event.target;
+			if (
+				target.classList.contains('overlay') ||
+				target.closest('.modal__close-button')
+			) {
+				closeModal(overlay);
+			}
+		});
+	};
+
+	const deleteControl = (table) => {
+		table.tbody.addEventListener('click', (e) => {
+			const target = e.target;
+			if (target.closest('.table__body-button--delete')) {
+				const currentRow = target.closest('.table__row');
+				const dataset = currentRow.dataset;
+
+				target.closest('.table__row').remove();
+				deleteProduct(dataset.id);
+			}
+		});
+	};
+
+	const checkboxControl = (checkbox) => {
+		checkbox.addEventListener('click', () => {
+			const discount = checkbox.nextElementSibling.children[0];
+			if (checkbox.checked) {
+				discount.disabled = false;
+			} else {
+				discount.disabled = true;
+				discount.value = '';
+			}
+		});
+	};
+
+	const init = () => {
+		const table = createTable();
+		renderGoods(table, goods);
+
+		const btnAdd = document.querySelector('.goods__add-product');
+		const overlay = document.querySelector('.overlay');
+		modalControl(btnAdd, overlay);
+
+		const checkbox = document.querySelector('.discount__checkbox-input');
+		checkboxControl(checkbox);
+
+    deleteControl(table);
+	};
+
+	window.crmInit = init;
 }
