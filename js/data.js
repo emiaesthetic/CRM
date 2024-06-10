@@ -78,3 +78,7 @@ export const addProductId = (newProduct) => {
 const getLastProductId = () => {
   return [...goods].sort((a, b) => a['id'] > b['id'] ? 1 : -1).at(-1).id;
 };
+
+export const getTotalPrice = () => {
+  return goods.reduce((acc, product) => acc + (product.price * product.count), 0);
+};

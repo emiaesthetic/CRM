@@ -1,8 +1,19 @@
 'use strict';
 
-import { goods, addProductId, addProduct, deleteProduct, } from './data.js';
+import {
+	goods,
+	addProductId,
+	addProduct,
+	deleteProduct,
+	getTotalPrice,
+} from './data.js';
 
 {
+	const addTotalPricePage = () => {
+		const elem = document.querySelector('.heading__price');
+		elem.textContent = `${getTotalPrice()}$`;
+	};
+
 	const createRow = ({ id, title, category, price, count, units }) => {
 		const tr = document.createElement('tr');
 		tr.classList.add('table__row');
@@ -209,6 +220,7 @@ import { goods, addProductId, addProduct, deleteProduct, } from './data.js';
 			addProductId(newProduct);
 			addProductPage(table, newProduct);
 			addProduct(newProduct);
+			addTotalPricePage();
 
 			form.reset();
 			closeModal();
@@ -250,6 +262,7 @@ import { goods, addProductId, addProduct, deleteProduct, } from './data.js';
 
 				target.closest('.table__row').remove();
 				deleteProduct(dataset.id);
+				addTotalPricePage();
 			}
 		});
 	};
@@ -279,10 +292,11 @@ import { goods, addProductId, addProduct, deleteProduct, } from './data.js';
 		oldForm.replaceWith(form);
 		formControl(form, table, closeModal);
 
-    const checkbox = document.querySelector('.discount__checkbox-input');
+		const checkbox = document.querySelector('.discount__checkbox-input');
 		checkboxControl(checkbox);
 
 		deleteControl(table);
+		addTotalPricePage();
 	};
 
 	window.crmInit = init;
