@@ -225,6 +225,16 @@ import {
 			form.reset();
 			closeModal();
 		});
+
+    form.addEventListener('change', () => {
+      const totalPrice =
+        form.price.value && form.count.value
+          ? Number(form.price.value) * Number(form.count.value)
+          : '';
+
+      const elem = document.querySelector('.add-product__footer-price');
+      elem.textContent = `${totalPrice}$`;
+    });
 	};
 
 	const modalControl = (btnAdd, overlay) => {
