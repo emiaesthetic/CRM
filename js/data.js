@@ -64,7 +64,7 @@ export const addProduct = (product) => {
 };
 
 export const deleteProduct = (idProduct) => {
-  const indexProduct = goods.findIndex(product => product.id === idProduct);
+  const indexProduct = goods.findIndex(product => product.id === +idProduct);
   goods.splice(indexProduct, 1);
 };
 

@@ -270,7 +270,7 @@ import {
 				const currentRow = target.closest('.table__row');
 				const dataset = currentRow.dataset;
 
-				target.closest('.table__row').remove();
+				currentRow.remove();
 				deleteProduct(dataset.id);
 				addTotalPricePage();
 			}
