@@ -59,7 +59,22 @@ export const goods = [
   },
 ];
 
+export const addProduct = (product) => {
+  goods.push(product);
+};
+
 export const deleteProduct = (idProduct) => {
   const indexProduct = goods.findIndex(product => product.id === idProduct);
   goods.splice(indexProduct, 1);
+};
+
+export const addProductId = (newProduct) => {
+  const lastProductId = getLastProductId();
+  newProduct.id = lastProductId + 1;
+
+  return newProduct;
+};
+
+const getLastProductId = () => {
+  return [...goods].sort((a, b) => a['id'] > b['id'] ? 1 : -1).at(-1).id;
 };

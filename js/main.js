@@ -1,6 +1,6 @@
 'use strict';
 
-import { goods, deleteProduct } from './data.js';
+import { goods, addProductId, addProduct, deleteProduct, } from './data.js';
 
 {
 	const createRow = ({ id, title, category, price, count, units }) => {
@@ -88,6 +88,133 @@ import { goods, deleteProduct } from './data.js';
 		wrapperTable.append(table);
 	};
 
+	const createForm = () => {
+		const form = document.createElement('form');
+		form.id = 'add-product';
+		form.classList.add('form');
+		form.insertAdjacentHTML(
+			'afterbegin',
+			`
+          <fieldset class="form__content">
+            <div class="form__item title">
+              <label class="form__label" for="title">Наименование</label>
+              <input
+                class="form__input"
+                type="text"
+                name="title"
+                id="title"
+                required
+              >
+            </div>
+
+            <div class="form__item description">
+              <label class="form__label" for="description">Описание</label>
+              <textarea
+                class="form__input
+                description__input"
+                name="description"
+                id="description"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form__item category">
+              <label class="form__label" for="category">Категория</label>
+              <input
+                class="form__input"
+                type="text"
+                name="category"
+                id="category"
+                required
+              >
+            </div>
+
+            <div class="form__item units">
+              <label class="form__label" for="units">Единицы измерения</label>
+              <input
+                class="form__input"
+                type="text"
+                name="units"
+                id="units"
+                required
+              >
+            </div>
+
+            <div class="form__item count">
+              <label class="form__label" for="count">Количество</label>
+              <input
+                class="form__input"
+                type="number"
+                name="count"
+                id="count"
+                required
+              >
+            </div>
+
+            <div class="form__item discount">
+              <label class="form__label" for="discount">Дисконт</label>
+              <input class="discount__checkbox-input" type="checkbox">
+              <div class="discount__number">
+                <input
+                class="form__input discount__number-input"
+                type="number"
+                name="discount"
+                id="discount"
+                disabled
+              >
+              </div>
+            </div>
+
+            <div class="form__item price">
+              <label class="form__label" for="price">Цена</label>
+              <input
+                class="form__input"
+                type="number"
+                name="price"
+                id="price"
+                required
+              >
+            </div>
+
+            <div class="form__item add-picture">
+              <input
+                class="add-picture__input"
+                type="file"
+                name="add-picture"
+                id="add-picture"
+              >
+              <label class="add-picture__label" for="add-picture">
+                Добавить изображение
+              </label>
+            </div>
+          </fieldset>
+      `,
+		);
+
+		return form;
+	};
+
+	const addProductPage = (table, product) => {
+		const productRow = createRow(product);
+		table.tbody.append(productRow);
+	};
+
+	const formControl = (form, table, closeModal) => {
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+
+			const formData = new FormData(e.target);
+			const newProduct = Object.fromEntries(formData);
+
+			addProductId(newProduct);
+			addProductPage(table, newProduct);
+			addProduct(newProduct);
+
+			form.reset();
+			closeModal();
+		});
+	};
+
 	const modalControl = (btnAdd, overlay) => {
 		const openModal = () => {
 			overlay.classList.add('overlay--active');
@@ -108,6 +235,10 @@ import { goods, deleteProduct } from './data.js';
 				closeModal(overlay);
 			}
 		});
+
+		return {
+			closeModal,
+		};
 	};
 
 	const deleteControl = (table) => {
@@ -141,12 +272,17 @@ import { goods, deleteProduct } from './data.js';
 
 		const btnAdd = document.querySelector('.goods__add-product');
 		const overlay = document.querySelector('.overlay');
-		modalControl(btnAdd, overlay);
+		const { closeModal } = modalControl(btnAdd, overlay);
 
-		const checkbox = document.querySelector('.discount__checkbox-input');
+		const oldForm = document.querySelector('.form');
+		const form = createForm();
+		oldForm.replaceWith(form);
+		formControl(form, table, closeModal);
+
+    const checkbox = document.querySelector('.discount__checkbox-input');
 		checkboxControl(checkbox);
 
-    deleteControl(table);
+		deleteControl(table);
 	};
 
 	window.crmInit = init;
