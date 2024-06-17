@@ -1,5 +1,3 @@
-'use strict';
-
 export const goods = [
   {
     'id': 253842678,
@@ -68,6 +66,9 @@ export const deleteProduct = (idProduct) => {
   goods.splice(indexProduct, 1);
 };
 
+const getLastProductId = () => [...goods]
+    .sort((a, b) => (a['id'] > b['id'] ? 1 : -1)).at(-1).id;
+
 export const addProductId = (newProduct) => {
   const lastProductId = getLastProductId();
   newProduct.id = lastProductId + 1;
@@ -75,10 +76,5 @@ export const addProductId = (newProduct) => {
   return newProduct;
 };
 
-const getLastProductId = () => {
-  return [...goods].sort((a, b) => a['id'] > b['id'] ? 1 : -1).at(-1).id;
-};
-
-export const getTotalPrice = () => {
-  return goods.reduce((acc, product) => acc + (product.price * product.count), 0);
-};
+export const getTotalPrice = () => goods
+    .reduce((acc, product) => acc + (product.price * product.count), 0);
