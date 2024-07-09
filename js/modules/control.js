@@ -89,3 +89,24 @@ export const checkboxControl = (checkbox) => {
     }
   });
 };
+
+export const showImageControl = (table) => {
+  table.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target.closest('.table__body-button--show')) {
+      const currentRow = target.closest('.table__row');
+
+      const imagePath = currentRow.dataset.pic;
+      const imageWidth = 600;
+      const imageHeight = 600;
+      const params = `
+        width=${imageWidth},
+        height=${imageHeight},
+        left=${(screen.width - imageWidth) / 2},
+        top=${(screen.height - imageHeight) / 2},
+      `;
+
+      open(imagePath, '', params);
+    }
+  });
+};
