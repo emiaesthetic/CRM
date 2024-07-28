@@ -5,6 +5,7 @@ import {
   modalControl,
   deleteControl,
   checkboxControl,
+  showImageControl,
   addTotalPricePage,
 } from './modules/control.js';
 import {
@@ -29,6 +30,7 @@ import {
     formControl(form, table, closeModal);
     deleteControl(table);
     addTotalPricePage();
+    showImageControl(table);
   };
 
   window.crmInit = init;
