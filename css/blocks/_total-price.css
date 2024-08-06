@@ -1,0 +1,13 @@
+.total-text {
+  font-weight: 500;
+  font-size: 14px;
+
+  color: var(--color-second)
+}
+
+.total-price {
+  font-weight: 700;
+  font-size: 18px;
+
+  color: var(--color-accent);
+}

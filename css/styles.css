@@ -1,7 +1,19 @@
-@import 'normalize.css';
-@import 'fonts.css';
-@import 'variables.css';
-@import 'base.css';
-@import 'button.css';
-@import 'modal.css';
-@import 'cms.css';
+/* global */
+@import '_normalize.css';
+@import '_fonts.css';
+@import '_variables.css';
+@import '_base.css';
+
+/* blocks */
+@import 'blocks/_button.css';
+@import 'blocks/_title.css';
+@import 'blocks/_cms.css';
+@import 'blocks/_header.css';
+@import 'blocks/_total-price.css';
+@import 'blocks/_goods.css';
+@import 'blocks/_controls.css';
+@import 'blocks/_table.css';
+@import 'blocks/_overlay.css';
+@import 'blocks/_modal.css';
+@import 'blocks/_form.css';
+@import 'blocks/_error.css';

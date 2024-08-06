@@ -1,0 +1,18 @@
+.error {
+  --container-width: 350px;
+  --container-padding-x: 48px;
+
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  padding: 108px var(--container-padding-x) 96px;
+  border-radius: 10px;
+}
+
+.error__cross {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 33px;
+}
+
+.error__message {
+  text-align: center;
+}
