@@ -21,6 +21,6 @@ export const fetchRequest = async (path, {
 
     throw new Error(response.statusText);
   } catch (error) {
-    callback(error);
+    return callback(error);
   }
 };

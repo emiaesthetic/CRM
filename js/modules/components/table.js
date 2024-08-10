@@ -1,28 +1,39 @@
-const createSVG = (width, height, tags) => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', width);
-  svg.setAttribute('height', height);
-  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-  svg.setAttribute('fill', 'none');
+import {createBtn} from './button.js';
+import {createSVG} from './svg.js';
+import {addCmsPrice, removeCmsPrice} from '../helpers/calculatePrice.js';
 
-  tags.forEach(tag => {
-    const path = document.createElementNS(svg.namespaceURI, 'path');
-    for (const [key, value] of Object.entries(tag)) {
-      path.setAttribute(key, value);
-    }
-    svg.append(path);
-  });
+export const createTable = () => {
+  {
+    const table = document.createElement('table');
+    table.classList.add('goods__table', 'table');
 
-  return svg;
-};
+    const thead = document.createElement('thead');
+    thead.classList.add('table__header');
+    thead.insertAdjacentHTML(
+        'afterbegin',
+        `
+    <tr class="table__row">
+      <th class="table__title">ID</th>
+      <th class="table__title">Наименование</th>
+      <th class="table__title">Категория</th>
+      <th class="table__title">Ед/изм</th>
+      <th class="table__title">Количество</th>
+      <th class="table__title">Цена</th>
+      <th class="table__title">Итог</th>
+      <th class="table__title"></th>
+    </tr>
+    `,
+    );
 
-const createBtn = ({className, type, ariaLabel, icon}) => {
-  const button = document.createElement('button');
-  button.className = className;
-  button.type = type;
-  button.ariaLabel = ariaLabel;
-  button.append(icon);
-  return button;
+    const tbody = document.createElement('tbody');
+    tbody.classList.add('table__body');
+
+    table.append(thead, tbody);
+    table.thead = thead;
+    table.tbody = tbody;
+
+    return table;
+  };
 };
 
 export const createRow = ({
@@ -173,4 +184,18 @@ export const createRow = ({
   tr.append(btnGroup);
 
   return tr;
+};
+
+export const addRow = (product) => {
+  document.querySelector('.table')?.append(createRow(product));
+  addCmsPrice(product.price, product.count);
+};
+
+export const removeRow = (productID) => {
+  const currentRow = document.querySelector(`[data-id="${productID}"]`);
+  currentRow.remove();
+
+  const rowPrice = currentRow.querySelector('#price').textContent.slice(1);
+  const rowCount = currentRow.querySelector('#count').textContent;
+  removeCmsPrice(rowPrice, rowCount);
 };

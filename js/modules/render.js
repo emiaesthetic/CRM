@@ -1,51 +1,55 @@
-import {createRow} from './ui/createElements.js';
-import {table, cmsPrice} from './ui/getElements.js';
-import {fetchRequest} from './api.js';
-import {
-  showError,
-  updateTotalPrice,
-  getTotalProductPrice,
-} from './helpers.js';
+import {createTable, createRow} from './components/table.js';
+import {loadStyle} from './helpers/style.js';
+import * as handlers from './handlers.js';
+import {createModal, createForm, createError} from './components/modal.js';
 
-const renderTotalPrice = (error, price) => {
+export const renderModal = async (error, data) => {
+  await loadStyle('css/blocks/_overlay.css');
+
+  const {overlay, modalWindow, closeBtn} = createModal();
+  overlay.addEventListener('click', overlay);
+  closeBtn.addEventListener('click', (e) => {
+    handlers.closeBtn(e, overlay);
+  });
+
   if (error) {
-    showError(error);
+    const errorContent = createError(error.message);
+    modalWindow.classList.add('error');
+    modalWindow.append(errorContent);
+  } else {
+    const {header, form, footer} = createForm(data);
+
+    form.addEventListener('click', handlers.checkbox);
+    form.addEventListener('input', () => {
+      const price = footer.querySelector('#formPrice');
+      handlers.calculatePrice(form, price);
+    });
+    form.addEventListener('submit', (e) => {
+      handlers.addProduct(e, overlay);
+    });
+
+    overlay.classList.add('overlay--form');
+    modalWindow.append(header, form, footer);
+  }
+};
+
+export const renderGoods = (err, data) => {
+  if (err) {
+    renderModal(err);
     return;
   };
-  cmsPrice.textContent = `$${price}`;
+
+  return data.goods.map(createRow);
 };
 
-const renderGoods = (error, data) => {
-  if (error) {
-    showError(error);
-    return;
-  };
-  const allRow = data.goods.map(createRow);
-  table.append(...allRow);
-};
+export const renderTable = () => {
+  const table = createTable();
+  table.addEventListener('click', handlers.removeProduct);
+  table.addEventListener('click', handlers.editProduct);
+  table.addEventListener('click', handlers.showImage);
 
-export const loadPage = () => {
-  const pathGoods = 'api/goods?page=2';
-  const pathTotalPrice = 'api/total';
+  const tableWrapper = document.querySelector('#tableWrapper');
+  tableWrapper.append(table);
 
-  fetchRequest(pathGoods, {callback: renderGoods});
-  fetchRequest(pathTotalPrice, {callback: renderTotalPrice});
-};
-
-export const addProduct = (product) => {
-  const row = createRow(product);
-  table.append(row);
-
-  const totalProductPrice = getTotalProductPrice(product.count, product.price);
-  cmsPrice.textContent =
-    `$${updateTotalPrice(cmsPrice.textContent, totalProductPrice, '+')}`;
-};
-
-export const removeProduct = (productID, count, price) => {
-  const currentRow = document.querySelector(`[data-id="${productID}"]`);
-  currentRow.remove();
-
-  const totalProductPrice = getTotalProductPrice(count, price);
-  cmsPrice.textContent =
-    `$${updateTotalPrice(cmsPrice.textContent, totalProductPrice, '-')}`;
+  return table;
 };

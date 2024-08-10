@@ -7,7 +7,7 @@
   <link rel="preload" href="fonts/inter-semibold.woff2" as="font" type="font/woff2" crossorigin>
   <title>CRM</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/main.js" type="module"></script>
+  <script src="js/index.js" type="module"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       crmInit();
@@ -61,8 +61,8 @@
           </button>
         </div>
 
-        <div class="goods__table-container">
-          <table class="goods__table table" id="table">
+        <div class="goods__table-container" id="tableWrapper">
+          <!-- <table class="goods__table table" id="table">
             <thead class="table__header">
               <tr class="table__row">
                 <th class="table__title">ID</th>
@@ -77,7 +77,7 @@
             </thead>
 
             <tbody class="table__body">
-              <!-- <tr class="table__row">
+              <tr class="table__row">
                 <td class="table__data">246016548</td>
                 <td class="table__data">Навигационная система Soundmax</td>
                 <td class="table__data">Техника для дома</td>
@@ -199,9 +199,9 @@
                     </svg>
                   </button>
                 </td>
-              </tr> -->
+              </tr>
             </tbody>
-          </table>
+          </table> -->
         </div>
 
         <div class="goods__footer">
@@ -235,7 +235,7 @@
     </div>
   </section>
 
-  <div class="overlay overlay--form" id="formOverlay">
+  <!-- <div class="overlay overlay--form" id="formOverlay">
     <div class="modal">
       <button class="modal__close button button-reset button--transparent" type="button" aria-label="Закрыть модальное окно">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -306,9 +306,9 @@
         </button>
       </footer>
     </div>
-  </div>
+  </div> -->
 
-  <div class="overlay" id="errorOverlay">
+  <!-- <div class="overlay" id="errorOverlay">
     <div class="modal error">
       <button class="modal__close button button-reset button--transparent" type="button" aria-label="Закрыть модальное окно">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -327,6 +327,6 @@
         <h2 class="error__message title title--small" id="errorText">Что-то пошло не так</h2>
       </div>
     </div>
-  </div>
+  </div> -->
 </body>
 </html>
