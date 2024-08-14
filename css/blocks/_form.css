@@ -11,9 +11,9 @@
     'category description'
     'units count'
     'discount price'
-    'picture picture';
+    'preview file';
   column-gap: 24px;
-  padding: 28px;
+  padding: 26px;
   border: none;
 
   background-color: var(--color-light);
@@ -21,12 +21,8 @@
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-.form__item:not(:last-child) {
+.form__item {
   margin-bottom: 12px;
-}
-
-.form__item:nth-child(7) {
-  margin-bottom: 32px;
 }
 
 .form-title {
@@ -52,15 +48,23 @@
 .form-discount {
   position: relative;
   grid-area: discount;
+  margin-bottom: 32px;
 }
 
 .form-price {
   grid-area: price;
+  margin-bottom: 32px;
 }
 
-.form-picture {
-  grid-area: picture;
-  justify-self: end;
+.form-file {
+  grid-area: file;
+  align-self: end;
+  margin-bottom: 0;
+}
+
+.form-preview {
+  grid-area: preview;
+  margin-bottom: 0;
 }
 
 .form__label {
@@ -172,7 +176,7 @@
   background-color: var(--background-color-main);
 }
 
-.form-picture__label {
+.form-file__label {
   display: block;
   padding: 11px 29px 11px 28px;
 
@@ -187,15 +191,27 @@
   transition-timing-function: var(--transition-timing-function);
 }
 
-.form-picture__input {
+.form-file__input {
   position: absolute;
   z-index: -1;
 	opacity: 0;
 }
 
-.form-picture__label:hover,
-.form-picture__input:focus-within + .form-picture__label {
+.form-file__label:hover,
+.form-file__input:focus-within + .form-file__label {
   box-shadow: var(--shadow);
+}
+
+.form-preview__error {
+  display: inline-block;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+
+  color: var(--color-red);
 }
 
 /* Media */
@@ -211,12 +227,13 @@
       'count'
       'discount'
       'price'
-      'picture';
+      'file'
+      'preview';
 
   border-radius: 6px;
   };
 
-  .form-picture {
+  .form-file {
     justify-self: center;
   }
 }
@@ -230,7 +247,15 @@
     padding: 20px;
   }
 
+  .form-discount {
+    margin-bottom: 12px;
+  }
+
   .form-price {
     margin-bottom: 20px;
+  }
+
+  .form-preview {
+    margin-top: 20px;
   }
 }

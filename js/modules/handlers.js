@@ -1,6 +1,8 @@
 import {addRow, removeRow} from './components/table.js';
 import {renderModal} from './render.js';
 import {fetchRequest} from './api.js';
+import {encodeImage} from './helpers/toBase64.js';
+import {createPreview, createPreviewError} from './components/modal.js';
 
 export const calculatePrice = (form, price) => {
   price.textContent = form.price.value && form.count.value ?
@@ -19,11 +21,12 @@ export const overlay = ({target}) => {
   }
 };
 
-export const addProduct = (e, overlay) => {
+export const addProduct = async (e, overlay) => {
   e.preventDefault();
 
   const formData = new FormData(e.target);
   const newProduct = Object.fromEntries(formData);
+  newProduct.file = await encodeImage(newProduct.file);
 
   fetchRequest('api/goods', {
     method: 'POST',
@@ -36,6 +39,7 @@ export const addProduct = (e, overlay) => {
         renderModal(error);
         return;
       }
+
       addRow(data);
       overlay.remove();
     },
@@ -63,7 +67,9 @@ export const removeProduct = ({target}) => {
 
 export const editProduct = ({target}) => {
   if (target.closest('.edit')) {
-    const productID = target.closest('.table__row').dataset.id;
+    const currentRow = target.closest('.table__row');
+    const productID = currentRow.dataset.id;
+
     fetchRequest(`api/goods/${productID}`, {
       callback: (error, data) => {
         if (error) {
@@ -101,4 +107,18 @@ export const showImage = ({target}) => {
 
     open(imagePath, '', params);
   }
+};
+
+export const showPreview = (file) => {
+  if (file.files.length <= 0) return;
+
+  const maxSize = 1024 * 1024;
+  const fileWrapper = file.parentNode;
+
+  const size = file.files[0].size;
+  const src = URL.createObjectURL(file.files[0]);
+  const preview = size > maxSize ? createPreviewError() : createPreview(src);
+
+  fileWrapper.nextElementSibling?.remove();
+  fileWrapper.after(preview);
 };

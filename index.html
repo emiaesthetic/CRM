@@ -235,7 +235,7 @@
     </div>
   </section>
 
-  <!-- <div class="overlay overlay--form" id="formOverlay">
+  <!-- <div class="overlay overlay--form active" id="formOverlay">
     <div class="modal">
       <button class="modal__close button button-reset button--transparent" type="button" aria-label="Закрыть модальное окно">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -289,9 +289,14 @@
             <input class="form__input" type="number" name="price" id="price" required>
           </div>
 
-          <div class="form__item form-picture">
-            <input class="form-picture__input" type="file" name="picture" id="picture">
-            <label class="form-picture__label" for="picture">Добавить изображение</label>
+          <div class="form__item form-file">
+            <input class="form-file__input" type="file" name="file" id="file">
+            <label class="form-file__label" for="file">Добавить изображение</label>
+          </div>
+
+          <div class="form__item form-preview active">
+            <span class="form-preview__error">Изображение не должно превышать размер 1МБ</span>
+            <img src="img/goods/internet.jpg" alt="">
           </div>
         </fieldset>
       </form>

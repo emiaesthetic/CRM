@@ -1,5 +1,6 @@
 import {createBtn} from './button.js';
 import {createSVG} from './svg.js';
+import {URL} from '../helpers/constants.js';
 
 export const createModal = () => {
   const overlay = document.createElement('div');
@@ -39,12 +40,39 @@ export const createModal = () => {
   };
 };
 
+export const createPreview = (src) => {
+  const previewWrapper = document.createElement('div');
+  previewWrapper.classList.add('form__item', 'form-preview');
+
+  const preview = document.createElement('img');
+  preview.src = src;
+
+  previewWrapper.append(preview);
+
+  return previewWrapper;
+};
+
+export const createPreviewError = () => {
+  const previewWrapper = document.createElement('div');
+  previewWrapper.classList.add('form__item', 'form-preview');
+
+  const error = document.createElement('span');
+  error.classList.add('form-preview__error');
+  error.textContent = 'Изображение не должно превышать размер 1 Мб';
+
+  previewWrapper.append(error);
+
+  return previewWrapper;
+};
+
 export const createForm = (data) => {
   const header = document.createElement('header');
   header.classList.add('modal__header');
   header.insertAdjacentHTML('afterbegin', `
-    <h2 class="modal__header-title title">Добавить товар</h2>
-    <span class="modal__header-product-id">id: </span>
+    <h2 class="modal__header-title title">
+      ${data ? 'Изменить товар' : 'Добавить товар'}
+    </h2>
+    <span class="modal__header-product-id">id: ${data?.id || ''}</span>
   `);
 
   const form = document.createElement('form');
@@ -52,9 +80,10 @@ export const createForm = (data) => {
   form.id = 'form';
   form.enctype = 'multipart/form-data';
 
-  form.insertAdjacentHTML('afterbegin', `
-    <fieldset class="form__content">
-        <div class="form__item form-title">
+  const formContent = document.createElement('fieldset');
+  formContent.classList.add('form__content');
+  formContent.insertAdjacentHTML('afterbegin', `
+      <div class="form__item form-title">
           <label class="form__label" for="title">Наименование</label>
           <input
             class="form__input"
@@ -144,19 +173,25 @@ export const createForm = (data) => {
           >
         </div>
 
-        <div class="form__item form-picture">
+        <div class="form__item form-file">
           <input
-            class="form-picture__input"
+            class="form-file__input"
             type="file"
-            name="picture"
-            id="picture"
+            name="file"
+            id="file"
           >
-          <label class="form-picture__label" for="picture">
+          <label class="form-file__label" for="file">
             Добавить изображение
           </label>
         </div>
-      </fieldset>
-  `);
+    `);
+
+  if (data && data.image !== 'notimage') {
+    const preview = createPreview(`${URL}${data.image}`);
+    formContent.append(preview);
+  }
+
+  form.append(formContent);
 
   const footer = document.createElement('footer');
   footer.classList.add('modal__footer');

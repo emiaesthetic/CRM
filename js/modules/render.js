@@ -3,29 +3,37 @@ import {loadStyle} from './helpers/style.js';
 import * as handlers from './handlers.js';
 import {createModal, createForm, createError} from './components/modal.js';
 
-export const renderModal = async (error, data) => {
+export const renderModal = async (err, data) => {
   await loadStyle('css/blocks/_overlay.css');
 
   const {overlay, modalWindow, closeBtn} = createModal();
+
   overlay.addEventListener('click', overlay);
+
   closeBtn.addEventListener('click', (e) => {
     handlers.closeBtn(e, overlay);
   });
 
-  if (error) {
-    const errorContent = createError(error.message);
+  if (err) {
+    const errorContent = createError(err.message);
     modalWindow.classList.add('error');
     modalWindow.append(errorContent);
   } else {
     const {header, form, footer} = createForm(data);
 
     form.addEventListener('click', handlers.checkbox);
+
     form.addEventListener('input', () => {
       const price = footer.querySelector('#formPrice');
       handlers.calculatePrice(form, price);
     });
+
     form.addEventListener('submit', (e) => {
       handlers.addProduct(e, overlay);
+    });
+
+    form.file.addEventListener('change', () => {
+      handlers.showPreview(form.file);
     });
 
     overlay.classList.add('overlay--form');

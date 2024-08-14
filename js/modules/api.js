@@ -1,3 +1,5 @@
+import {URL} from './helpers/constants.js';
+
 export const fetchRequest = async (path, {
   method = 'GET',
   headers,
@@ -5,7 +7,7 @@ export const fetchRequest = async (path, {
   callback,
 }) => {
   try {
-    const url = `https://bristle-wonderful-eagle.glitch.me/${path}`;
+    const url = `${URL}${path}`;
     const options = {
       method,
     };
