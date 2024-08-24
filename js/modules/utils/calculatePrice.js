@@ -18,7 +18,6 @@ export const addCmsPrice = (price, count) => {
 };
 
 export const removeCmsPrice = (price, count) => {
-  console.log(price, count);
   currentTotalPrice -= +price * +count;
   totalPrice.textContent = `$${currentTotalPrice}`;
 };

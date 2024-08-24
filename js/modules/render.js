@@ -1,14 +1,15 @@
 import {createTable, createRow} from './components/table.js';
-import {loadStyle} from './helpers/style.js';
+import {loadStyle} from './utils/style.js';
 import * as handlers from './handlers.js';
 import {createModal, createForm, createError} from './components/modal.js';
+import {validateDescription} from './utils/validation.js';
 
 export const renderModal = async (err, data) => {
   await loadStyle('css/blocks/_overlay.css');
 
   const {overlay, modalWindow, closeBtn} = createModal();
 
-  overlay.addEventListener('click', overlay);
+  overlay.addEventListener('click', handlers.overlay);
 
   closeBtn.addEventListener('click', (e) => {
     handlers.closeBtn(e, overlay);
@@ -28,12 +29,22 @@ export const renderModal = async (err, data) => {
       handlers.calculatePrice(form, price);
     });
 
-    form.addEventListener('submit', (e) => {
-      handlers.addProduct(e, overlay);
-    });
-
     form.file.addEventListener('change', () => {
       handlers.showPreview(form.file);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      validateDescription(form.description);
+
+      if (form.description.checkValidity()) {
+        handlers.addProduct(e.target, overlay);
+      } else {
+        form.description.addEventListener('input', () => {
+          validateDescription(form.description);
+        });
+      }
     });
 
     overlay.classList.add('overlay--form');

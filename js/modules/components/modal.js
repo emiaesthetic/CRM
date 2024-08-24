@@ -1,6 +1,6 @@
 import {createBtn} from './button.js';
 import {createSVG} from './svg.js';
-import {URL} from '../helpers/constants.js';
+import {URL} from '../utils/constants.js';
 
 export const createModal = () => {
   const overlay = document.createElement('div');
@@ -91,6 +91,7 @@ export const createForm = (data) => {
             name="title"
             id="title"
             value="${data?.title || ''}"
+            pattern="^[А-Яа-яЁё\\s]+$"
             required
           >
         </div>
@@ -113,6 +114,7 @@ export const createForm = (data) => {
             name="category"
             id="category"
             value="${data?.category || ''}"
+            pattern="^[А-Яа-яЁё\\s]+$"
             required
           >
         </div>
@@ -125,6 +127,7 @@ export const createForm = (data) => {
             name="units"
             id="units"
             value="${data?.units || ''}"
+            pattern="^[А-Яа-яЁё]+$"
             required
           >
         </div>
@@ -136,6 +139,7 @@ export const createForm = (data) => {
             type="number"
             name="count"
             id="count"
+            pattern="^[\\d+]+$"
             value="${data?.count || ''}"
             required
           >
@@ -156,6 +160,7 @@ export const createForm = (data) => {
               name="discount"
               id="discount"
               value="${data?.discount || ''}"
+              pattern="^[\\d+]+$"
               disabled
             >
           </div>
@@ -169,6 +174,7 @@ export const createForm = (data) => {
             name="price"
             id="price"
             value="${data?.price || ''}"
+            pattern="^[\\d+\\.\\d{2}]+$"
             required
           >
         </div>

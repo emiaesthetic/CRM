@@ -1,4 +1,4 @@
-import {URL} from './helpers/constants.js';
+import {URL} from './utils/constants.js';
 
 export const fetchRequest = async (path, {
   method = 'GET',

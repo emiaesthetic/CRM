@@ -1,7 +1,7 @@
 import {addRow, removeRow} from './components/table.js';
 import {renderModal} from './render.js';
 import {fetchRequest} from './api.js';
-import {encodeImage} from './helpers/toBase64.js';
+import {encodeImage} from './utils/toBase64.js';
 import {createPreview, createPreviewError} from './components/modal.js';
 
 export const calculatePrice = (form, price) => {
@@ -21,10 +21,8 @@ export const overlay = ({target}) => {
   }
 };
 
-export const addProduct = async (e, overlay) => {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
+export const addProduct = async (target, overlay) => {
+  const formData = new FormData(target);
   const newProduct = Object.fromEntries(formData);
   newProduct.file = await encodeImage(newProduct.file);
 

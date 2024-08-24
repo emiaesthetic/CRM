@@ -1,7 +1,7 @@
 import {createBtn} from './button.js';
 import {createSVG} from './svg.js';
-import {addCmsPrice, removeCmsPrice} from '../helpers/calculatePrice.js';
-import {URL} from '../helpers/constants.js';
+import {addCmsPrice, removeCmsPrice} from '../utils/calculatePrice.js';
+import {URL} from '../utils/constants.js';
 
 export const createTable = () => {
   {

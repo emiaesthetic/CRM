@@ -1,6 +1,6 @@
 import {fetchRequest} from './modules/api.js';
 import {renderGoods, renderTable, renderModal} from './modules/render.js';
-import {loadPrice} from './modules/helpers/calculatePrice.js';
+import {loadPrice} from './modules/utils/calculatePrice.js';
 
 {
   const init = async () => {
