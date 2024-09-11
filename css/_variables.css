@@ -6,7 +6,7 @@
 
   --border-radius: 6px;
 
-  --transition-duration: .1s;
+  --transition-duration: .2s;
   --transition-timing-function: linear;
 
   --background-color-main: #f2f0f9;
@@ -19,4 +19,7 @@
   --color-light: #fff;
   --color-dark: #000;
   --color-gray: #eee;
+  --color-red: #d80101;
+
+  --shadow: 1px 1px 10px 0px var(--color-second);
 }
