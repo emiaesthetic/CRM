@@ -1,0 +1,70 @@
+.button-reset {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button {
+  color: currentColor;
+  transition-property: color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing-function);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button--light:hover,
+.button--light:focus-within {
+  box-shadow: var(--shadow);
+}
+
+.button--transparent:hover,
+.button--transparent:focus {
+  color: var(--color-accent);
+  outline: 1px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.button--purple {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  color: var(--color-light);
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius);
+}
+
+.button--purple:hover,
+.button--purple:focus-within {
+  box-shadow: var(--shadow);
+}
+
+.show,
+.edit,
+.delete,
+.no-image {
+  width: 20px;
+  height: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.show {
+  background-image: url(../../img/show.svg);
+}
+
+.edit {
+  background-image: url(../../img/edit.svg);
+}
+
+.delete {
+  background-image: url(../../img/delete.svg);
+}
+
+.no-image {
+  background-image: url(../../img/no-image.svg);
+}

@@ -1,0 +1,26 @@
+.confirm {
+  --container-width: 480px;
+  --container-padding-x: 106px;
+
+  position: relative;
+
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  padding: 40px var(--container-padding-x);
+}
+
+.confirm__text {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.confirm__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.confirm__cancel,
+.confirm__apply {
+  padding: 10px 20px;
+}

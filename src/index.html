@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM</title>
+</head>
+<body>
+
+  <h1 class="visually-hidden">CRM для магазина Online-Shop</h1>
+
+  <section class="cms">
+    <div class="container">
+      <header class="cms__header header">
+        <h2 class="header__title title">CMS</h2>
+        <span class="header__total-text total-text">
+          Итоговая стоимость: <span class="header__total-price total-price" id="cmsPrice">$0.00</span>
+        </span>
+      </header>
+
+      <main class="goods">
+        <div class="goods__controls controls" id="controlWrapper">
+        </div>
+
+        <div class="goods__table-container" id="tableWrapper">
+        </div>
+
+        <div class="goods__footer">
+          <span class="goods__page-count">Показать на странице:
+            <select class="goods__select" name="page_count" id="page_count">
+              <option class="goods__option" value="10">10</option>
+              <option class="goods__option" value="20">20</option>
+              <option class="goods__option" value="50">50</option>
+            </select>
+          </span>
+
+          <span class="goods__withdrawn-items">1-10 of 276</span>
+
+          <button class="goods__page button button-reset button--transparent" type="button">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.79971 1.10636C6.42812 0.51287 5.43313 -0.426818 4.80472 0.216126L0.196378 4.51891C-0.0654595
+              4.7662 -0.0654595 5.21131 0.196378 5.4586L4.80472 9.81084C5.43313 10.4043 6.42812 9.46464 5.79971
+              8.87115L1.71504 5.01348L5.79971 1.10636Z" />
+            </svg>
+          </button>
+
+          <button class="goods__page button button-reset button--transparent" type="button">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.200293 1.10636C-0.428118 0.51287 0.566865 -0.426818 1.19528 0.216126L5.80362 4.51891C6.06546
+              4.7662 6.06546 5.21131 5.80362 5.4586L1.19528 9.81084C0.566865 10.4043 -0.428118 9.46464 0.200293
+              8.87115L4.28496 5.01348L0.200293 1.10636Z"/>
+            </svg>
+          </button>
+        </div>
+      </main>
+    </div>
+  </section>
+
+</body>
+</html>

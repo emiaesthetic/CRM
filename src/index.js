@@ -1,0 +1,3 @@
+import './index.html';
+import './css/styles.css';
+import './js/app.js';
