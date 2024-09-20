@@ -65,7 +65,7 @@ const toggleDiscountField = ({target}) => {
   }
 };
 
-export const addProduct = async target => {
+export const addProduct = async ({target}) => {
   const formData = new FormData(target);
   const newProduct = Object.fromEntries(formData);
   const formattedProduct = await formatProductData(newProduct);
@@ -88,7 +88,7 @@ export const addProduct = async target => {
   });
 };
 
-export const editProduct = async (target, id) => {
+export const editProduct = async ({target}, id) => {
   const formData = new FormData(target);
   const newProduct = Object.fromEntries(formData);
   const formattedProduct = await formatProductData(newProduct);
@@ -153,7 +153,13 @@ export const attachFormEventListeners = (form, {id} = {}) => {
     handlerFormPrice(form);
   });
 
-  validateAndSubmitForm(form, id);
+  if (id) {
+    validateAndSubmitForm(form, (event) => {
+      editProduct(event, id);
+    });
+  } else {
+    validateAndSubmitForm(form, addProduct);
+  }
 };
 
 export const attachConfirmEventListeners = (applyBtn, cancelBtn) => {

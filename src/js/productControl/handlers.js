@@ -1,19 +1,11 @@
 import {renderGoods} from '../productList/render.js';
 import {renderForm} from '../productModal/render.js';
 import {debounce} from '../utils.js';
-import {sendRequest} from '../fetchRequest.js';
+import {loadSearch} from '../fetchRequest.js';
 
 const searchAndShowProduct = async query => {
-  const pathSearch = `api/goods?search=${query || ''}`;
-  await sendRequest(pathSearch, {
-    callback: (error, data) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      renderGoods(data.goods);
-    },
-  });
+  const data = await loadSearch(query);
+  renderGoods(data.goods);
 };
 
 export const attachControlEventListeners = (form, addBtn) => {

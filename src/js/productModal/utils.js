@@ -37,13 +37,12 @@ export const updateRow = data => {
 
   const price = currentRow.querySelector('#price');
   const prevPrice = price.textContent.slice(1);
-  price.textContent = data.price;
+  price.textContent = `$${data.price}`;
 
   const totalPrice = currentRow.querySelector('#totalPrice');
   totalPrice.textContent = `$${Math.round(calculateProductPrice(
       data.price,
       data.count,
-      data.discount,
   ))}`;
 
   decreaseTotalPrice(prevPrice, prevCount);

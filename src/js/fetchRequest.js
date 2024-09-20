@@ -25,8 +25,8 @@ export const sendRequest = async (path, {
   }
 };
 
-export const loadGoods = async (page) => await sendRequest(
-    `api/goods?page=${page ? page : 1}`, {
+export const loadGoods = async (page = 1) => await sendRequest(
+    `api/goods?page=${page}`, {
       callback: (error, data) => {
         if (error) {
           console.error(error);
@@ -56,3 +56,15 @@ export const loadTotalPrice = async () => await sendRequest('api/total', {
     return totalPrice;
   },
 });
+
+export const loadSearch = async (query, page) => await sendRequest(
+    `api/goods?${page ? `page=${page}&` : ''}search=${query || ''}`, {
+      callback: (error, data) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
+        return data;
+      },
+    },
+);

@@ -1,7 +1,6 @@
 import JustValidate from 'just-validate';
-import {addProduct, editProduct} from './handlers.js';
 
-export const validateAndSubmitForm = (form, id) => {
+export const validateAndSubmitForm = (form, onSuccess) => {
   const validator = new JustValidate(form, {validateBeforeSubmitting: false});
 
   validator
@@ -85,14 +84,7 @@ export const validateAndSubmitForm = (form, id) => {
       ])
       .onSuccess((event) => {
         event.preventDefault();
-
-        const target = event.target;
-
-        if (id) {
-          editProduct(target, id);
-        } else {
-          addProduct(target);
-        }
+        onSuccess(event);
       });
 
   Object.values(validator.fields).map(field => {
